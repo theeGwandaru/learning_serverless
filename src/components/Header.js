@@ -1,8 +1,18 @@
-import React from 'react';
-import menuLinksData from './data/menu_links.json';
+import React, {useState, useEffect} from 'react';
 import downArrow from '../images/misc/arrow.png'
 
 export default function Header() {
+    const [menuLinksData, setMenuLinksData] = useState([]);
+    const loadMenuLinksData = async()=>{
+      const response = await fetch('https://orbll81bq7.execute-api.us-east-2.amazonaws.com/Production/menuLinks');
+      let data = await response.json();
+      setMenuLinksData(data);
+    }
+
+    useEffect(()=>{
+      //Load the Menu Links data from API
+      loadMenuLinksData();
+    }, []);
     return (
         <header id="intro">
         <article class="fullheight">
